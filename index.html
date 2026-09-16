@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MedAim — Your NEET prep, all in one place</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blue: #1E88C7;
+    --blue-deep: #0F3A56;
+    --teal: #2EC4B6;
+    --bg: #F4F6F8;
+    --card: #FFFFFF;
+    --ink: #10202B;
+    --ink-soft: #55636D;
+    --border: #E2E8ED;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0B1620;
+      --card: #12212E;
+      --ink: #EAF1F6;
+      --ink-soft: #93A5B3;
+      --border: #1F313E;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0B1620;
+    --card: #12212E;
+    --ink: #EAF1F6;
+    --ink-soft: #93A5B3;
+    --border: #1F313E;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+  h1, h2, h3, .display { font-family: 'Sora', 'Inter', sans-serif; }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ---------- NAV ---------- */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 19px;
+  }
+  .logo-mark {
+    width: 30px; height: 30px;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .logo-mark svg { width: 100%; height: 100%; }
+  .nav-cta {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero {
+    padding: 40px 24px 60px;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 40px;
+    align-items: center;
+  }
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; padding-top: 10px; }
+  }
+  .eyebrow-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(46,196,182,0.12);
+    color: var(--teal);
+    border: 1px solid rgba(46,196,182,0.3);
+    padding: 6px 14px;
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 5vw, 48px);
+    line-height: 1.12;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    max-width: 520px;
+  }
+  .hero h1 .accent { color: var(--blue); }
+  .hero p.lead {
+    margin-top: 18px;
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 460px;
+    line-height: 1.6;
+  }
+  .hero-ctas { display: flex; gap: 12px; margin-top: 30px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--blue);
+    color: white;
+    border: none;
+    padding: 15px 26px;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--ink);
+    border: 1.5px solid var(--border);
+    padding: 15px 26px;
+    border-radius: 100px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .hero-note { margin-top: 16px; font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- PHONE MOCKUP ---------- */
+  .phone-stage {
+    display: flex;
+    justify-content: center;
+    animation: floatIn 0.9s cubic-bezier(.2,.8,.2,1) both;
+  }
+  @keyframes floatIn {
+    from { opacity: 0; transform: translateY(24px) rotate(0deg); }
+    to { opacity: 1; transform: translateY(0) rotate(-2deg); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .phone-stage { animation: none; transform: rotate(-2deg); }
+  }
+  .phone {
+    width: 250px;
+    background: var(--blue-deep);
+    border-radius: 34px;
+    padding: 10px;
+    box-shadow: 0 30px 60px -20px rgba(15,58,86,0.45);
+    transform: rotate(-2deg);
+  }
+  .phone-screen {
+    background: var(--bg);
+    border-radius: 26px;
+    overflow: hidden;
+  }
+  .phone-topbar {
+    background: var(--blue);
+    color: white;
+    padding: 16px 16px 14px;
+    font-family: 'Sora', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .phone-body { padding: 14px; }
+  .phone-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+  }
+  .app-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 12px 10px;
+    text-align: center;
+  }
+  .app-card .chip {
+    width: 32px; height: 32px;
+    border-radius: 9px;
+    margin: 0 auto 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+  }
+  .app-card .label { font-size: 11.5px; font-weight: 700; color: var(--ink); }
+  .chip.c1 { background: rgba(30,136,199,0.14); }
+  .chip.c2 { background: rgba(46,196,182,0.16); }
+  .chip.c3 { background: rgba(230,168,60,0.16); }
+  .chip.c4 { background: rgba(30,136,199,0.14); }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .section { padding: 70px 24px; }
+  .section-inner { max-width: 1080px; margin: 0 auto; }
+  .section h2 {
+    font-size: clamp(24px, 3.4vw, 32px);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    max-width: 480px;
+  }
+  .section p.section-sub {
+    margin-top: 12px;
+    color: var(--ink-soft);
+    font-size: 15.5px;
+    max-width: 480px;
+    line-height: 1.6;
+  }
+
+  /* ---------- FEATURES ---------- */
+  .feature-grid {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 700px) { .feature-grid { grid-template-columns: 1fr; } }
+  .feature-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 26px;
+  }
+  .feature-card .ficon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+  .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+  .feature-card p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.6; }
+  .fi1 { background: rgba(30,136,199,0.13); }
+  .fi2 { background: rgba(46,196,182,0.15); }
+  .fi3 { background: rgba(230,168,60,0.15); }
+  .fi4 { background: rgba(231,76,60,0.12); }
+
+  /* ---------- COUNTDOWN ---------- */
+  .countdown-section {
+    background: var(--blue-deep);
+    color: white;
+    border-radius: 28px;
+    margin: 0 24px;
+    padding: 50px 30px;
+    text-align: center;
+  }
+  .countdown-section h2 { color: white; max-width: none; }
+  .countdown-section p.section-sub { color: rgba(255,255,255,0.65); max-width: none; margin-left: auto; margin-right: auto; }
+  .countdown-grid {
+    margin-top: 34px;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .cd-box {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius: 16px;
+    padding: 18px 20px;
+    min-width: 84px;
+  }
+  .cd-box .num {
+    font-family: 'Sora', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--teal);
+    font-variant-numeric: tabular-nums;
+  }
+  .cd-box .lbl { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 4px; }
+
+  /* ---------- AI DEMO ---------- */
+  .ai-section { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+  @media (max-width: 800px) { .ai-section { grid-template-columns: 1fr; } }
+  .quiz-mock {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 22px;
+  }
+  .quiz-mock .qtag { font-size: 12px; color: var(--ink-soft); margin-bottom: 10px; }
+  .quiz-mock .qtext { font-weight: 700; font-size: 15.5px; margin-bottom: 16px; line-height: 1.5; }
+  .qopt {
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 11px 14px;
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+  .qopt.right { border-color: #2ECC71; background: rgba(46,204,113,0.08); color: #1c9a56; font-weight: 600; }
+
+  /* ---------- FOOTER ---------- */
+  footer {
+    padding: 40px 24px 30px;
+    border-top: 1px solid var(--border);
+    margin-top: 30px;
+  }
+  .footer-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  footer a { color: var(--ink-soft); text-decoration: none; font-size: 13.5px; }
+  .footer-links { display: flex; gap: 20px; flex-wrap: wrap; }
+  .footer-note { font-size: 13px; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">
+    <span class="logo-mark">
+      <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M14 18C11 18 9 20 9 23C9 26 11 28 14 28H19V33C19 36 21 38 24 38C27 38 29 36 29 33V28" stroke="#1E88C7" stroke-width="4" stroke-linecap="round"/>
+        <path d="M19 18V13C19 10 21 8 24 8C27 8 29 10 29 13V18H34C37 18 39 20 39 23" stroke="#1E88C7" stroke-width="4" stroke-linecap="round"/>
+        <path d="M17 26L30 13" stroke="#1E88C7" stroke-width="4" stroke-linecap="round"/>
+        <path d="M24 15L30 13L30.5 19.5" stroke="#1E88C7" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+    MedAim
+  </div>
+  <a href="#download" class="nav-cta">Get the app</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="eyebrow-chip">Built for NEET aspirants</div>
+    <h1>Everything you need for NEET, <span class="accent">in one app.</span></h1>
+    <p class="lead">PYQs, NCERT PDFs, and AI-generated practice questions — no more switching between five different Telegram channels to find your notes.</p>
+    <div class="hero-ctas">
+      <a href="#download" class="btn-primary">Get the app — it's free</a>
+      <a href="#features" class="btn-secondary">See what's inside</a>
+    </div>
+    <p class="hero-note">Free forever. No sign-up needed to start studying.</p>
+  </div>
+
+  <div class="phone-stage">
+    <div class="phone">
+      <div class="phone-screen">
+        <div class="phone-topbar">MedAim</div>
+        <div class="phone-body">
+          <div class="phone-grid">
+            <div class="app-card">
+              <div class="chip c1">📄</div>
+              <div class="label">Pyq Books</div>
+            </div>
+            <div class="app-card">
+              <div class="chip c2">📗</div>
+              <div class="label">Ncert</div>
+            </div>
+            <div class="app-card">
+              <div class="chip c3">🧠</div>
+              <div class="label">AI Questions</div>
+            </div>
+            <div class="app-card">
+              <div class="chip c4">📝</div>
+              <div class="label">Paper</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="features">
+  <div class="section-inner">
+    <h2>Stop hunting for notes. Start solving papers.</h2>
+    <p class="section-sub">Every resource you actually need for NEET prep, organized in one place — free.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="ficon fi1">📄</div>
+        <h3>Previous Year Papers</h3>
+        <p>Years of NEET PYQs from PW and Disha, sorted by subject and class — download once, revise anytime.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon fi2">📗</div>
+        <h3>NCERT, Class 11 &amp; 12</h3>
+        <p>The books NEET is actually based on, split part-wise so you're never scrolling through 300 pages to find one chapter.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon fi3">🧠</div>
+        <h3>AI-Generated Questions</h3>
+        <p>Pick a subject and level, and get fresh practice questions on demand — with explanations, not just answers.</p>
+      </div>
+      <div class="feature-card">
+        <div class="ficon fi4">📝</div>
+        <h3>Year-wise NEET Papers</h3>
+        <p>Full papers from 2021 through 2026, so you can time yourself against the real thing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-inner ai-section">
+    <div>
+      <h2>Test yourself, one question at a time.</h2>
+      <p class="section-sub">Answer, skip, or get it wrong — either way, you'll see exactly why the correct answer is correct, right after every question.</p>
+    </div>
+    <div class="quiz-mock">
+      <div class="qtag">Biology — NEET Mixed</div>
+      <div class="qtext">Which of the following is the site of light-independent reactions in photosynthesis?</div>
+      <div class="qopt">Thylakoid membrane</div>
+      <div class="qopt right">✓ Stroma</div>
+      <div class="qopt">Outer chloroplast membrane</div>
+      <div class="qopt">Cristae</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="countdown-section">
+    <h2>The exam isn't waiting.</h2>
+    <p class="section-sub">Here's exactly how long you've got left.</p>
+    <div class="countdown-grid">
+      <div class="cd-box"><div class="num" id="cd-days">--</div><div class="lbl">Days</div></div>
+      <div class="cd-box"><div class="num" id="cd-hours">--</div><div class="lbl">Hours</div></div>
+      <div class="cd-box"><div class="num" id="cd-min">--</div><div class="lbl">Minutes</div></div>
+      <div class="cd-box"><div class="num" id="cd-sec">--</div><div class="lbl">Seconds</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="download">
+  <div class="section-inner" style="text-align:center;">
+    <h2 style="max-width:none;">Ready when you are.</h2>
+    <p class="section-sub" style="max-width:480px; margin-left:auto; margin-right:auto;">MedAim is free to use, with no account required to start browsing PDFs and practicing questions.</p>
+    <div class="hero-ctas" style="justify-content:center; margin-top:26px;">
+      <a href="mailto:shahidmedico08@gmail.com" class="btn-primary">Contact for early access</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-note">MedAim — made by Shahid</div>
+    <div class="footer-links">
+      <a href="mailto:shahidmedico08@gmail.com">Contact</a>
+      <a href="#" id="privacy-link">Privacy Policy</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Live NEET countdown — update the target date below to the confirmed exam date
+  const target = new Date("2027-05-03T00:00:00");
+
+  function tick() {
+    const now = new Date();
+    let diff = target - now;
+    if (diff < 0) diff = 0;
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const mins = Math.floor((diff / (1000 * 60)) % 60);
+    const secs = Math.floor((diff / 1000) % 60);
+
+    document.getElementById('cd-days').textContent = days;
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+    document.getElementById('cd-min').textContent = String(mins).padStart(2, '0');
+    document.getElementById('cd-sec').textContent = String(secs).padStart(2, '0');
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
